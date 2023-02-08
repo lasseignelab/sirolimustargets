@@ -2,38 +2,36 @@
 Investigate GTEx[(1)](https://pubmed.ncbi.nlm.nih.gov/23715323/)[(2)](https://pubmed.ncbi.nlm.nih.gov/25954001/) tissue-specific expression of the drug targets of sirolimus (aka rapamycin) using signatureSearchData[(3)](https://pubmed.ncbi.nlm.nih.gov/33068417/), Pharos[(4)](https://pubmed.ncbi.nlm.nih.gov/31898878/) (Tclin and Tchem level targets), and Signor[(5)](https://pubmed.ncbi.nlm.nih.gov/36243968/). 
 
 ## code/. 
-
+- sirolimus_analyses.Rmd
 
 ## data/. 
-- Metadata for all 3 datasets (as .txt files)
-- Ensembl human and mouse gene conversions
-- Background gene list (all possible measured genes that could be mapped to human entrez ID's to use as a background for FEA)
+- gtex_tissue_specificity.txt: Tissue-specific differentially expressed genes from GTEx 
+- rapamycin_pharos/queryresults.csv: Pharos Tclin and Tchem targets for sirolimus 
+- sirolimus_signor.tsv: Signor interactions for sirolimus 
 
+## figures/. 
+- gtex_tissuespecificDEG_sirolimus_heatmap.png 
 
 ### Versions  
 Platform
 ```
 x86_64-apple-darwin17.0 
-R version 4.1.1 (2021-08-10)
+R version 4.2.0 (2022-04-22)
 ```
 Packages
 ```
-##              biomaRt                rhdf5        ExperimentHub 
-##             "2.50.3"             "2.38.1"              "2.2.1" 
-##        AnnotationHub        BiocFileCache               dbplyr 
-##              "3.2.2"              "2.2.1"              "2.1.1" 
-##      signatureSearch  signatureSearchData                 Rcpp 
-##              "1.8.2"              "1.8.4"            "1.0.8.3" 
-##              ggrepel              ggplot2                dplyr 
-##              "0.9.1"              "3.3.5"              "1.0.8" 
-##             pheatmap               apeglm              stringr 
-##             "1.0.12"             "1.16.0"              "1.4.0" 
-##               DESeq2 SummarizedExperiment              Biobase 
-##             "1.34.0"             "1.24.0"             "2.54.0" 
-##       MatrixGenerics          matrixStats        GenomicRanges 
-##              "1.6.0"             "0.61.0"             "1.46.1" 
-##         GenomeInfoDb              IRanges            S4Vectors 
-##             "1.30.1"             "2.28.0"             "0.32.4" 
-##         BiocGenerics 
-##             "0.40.0"
+signatureSearchData      signatureSearch SummarizedExperiment              Biobase 
+            "1.10.0"             "1.10.0"             "1.26.1"             "2.58.0" 
+       GenomicRanges         GenomeInfoDb              IRanges            S4Vectors 
+            "1.48.0"             "1.34.6"             "2.32.0"             "0.36.1" 
+        BiocGenerics       MatrixGenerics          matrixStats                 Rcpp 
+            "0.44.0"              "1.8.1"             "0.63.0"             "1.0.10" 
+          ggalluvial              viridis          viridisLite       ComplexHeatmap 
+            "0.12.3"              "0.6.2"              "0.4.1"             "2.12.1" 
+             forcats              stringr                dplyr                purrr 
+             "1.0.0"              "1.5.0"              "1.1.0"              "1.0.1" 
+               readr                tidyr               tibble              ggplot2 
+             "2.1.3"              "1.3.0"              "3.1.8"              "3.4.0" 
+           tidyverse               readxl                 here 
+             "1.3.2"              "1.4.1"              "1.0.1" 
 ```
