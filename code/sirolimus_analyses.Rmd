@@ -1,0 +1,131 @@
+---
+title: "tissue_specificity_ade"
+author: "Lizzy Wilk"
+date: "1/30/2023"
+output: html_document
+---
+
+## Purpose  
+Investigate tissue-specific and pre-cystic/cystid PKD kidney expression of the drug targets of sirolimus (aka rapamycin).  
+load libraries
+```{r}
+library(readxl)
+library(tidyverse)
+library(ComplexHeatmap)
+library(viridis)
+library(ggplot2)
+library(ggalluvial)
+library(signatureSearch)
+library(signatureSearchData)
+```
+
+#### Sirolimus Targets
+Signaturesearch's function __get_targets()__ returns for a set of query drug names/ids the corresponding target gene/protein ids.
+The required drug-target annotations are from DrugBank, CLUE and STITCH. An SQLite database
+storing these drug-target interactions based on the above three annotation resources is available in
+the signatureSearchData package.  
+’DrugBank’, ’CLUE’, STITCH’
+get targets for sirolimus
+```{r}
+sirol_ss <- signatureSearch::get_targets("sirolimus", database = "all", verbose = TRUE, output = "vector")
+
+```
+
+read in pharos's results for sirlimus / rapamycin (tclin and tchem) and signor's signaling
+```{r}
+sirol_pharos <- read_csv("../data/rapamycin_pharos/queryresults.csv")
+
+sirol_signor <- read.delim("../data/sirolimus_signor.tsv")
+```
+
+combine the unique targets across all data sources
+```{r}
+target_aggreg <- unique(c(sirol_ss, sirol_pharos$Symbol, sirol_signor$ENTITYB))
+
+```
+
+
+### Tissue Specific Drug Targets
+gtex_tissue_specificity
+read in gtex
+```{r}
+gtex <- read.csv("../data/gtex_tissue_specificity.txt", sep = "\t")
+
+gtex <- gtex[3:nrow(gtex),] 
+gtex <- dplyr::select(gtex, !c(2,3))
+```
+
+
+filter gtex tissue specificity just for genes that are drug targets
+```{r}
+tis_spec_targets <- dplyr::filter(gtex, `X.` %in% target_aggreg)
+temp <- tibble::column_to_rownames(tis_spec_targets, var = "X.") 
+tis_spec_targets <- lapply(temp, as.numeric) %>% as.data.frame()
+row.names(tis_spec_targets) <- row.names(temp)
+```
+
+drug targets that have a specificity in more than 1 tissue, and tisues with no specificity (except kidney!)
+```{r}
+#test <- colVars(as.matrix(tis_spec_targets), useNames = TRUE)
+#sort(test)
+
+#focus on tissues with > 1 biased target expression
+av <- apply(tis_spec_targets, 2, abs)
+#find out how many target biased exp per tissue
+t <- apply(av, 2, sum)
+#tissues with > 1 biased target expression
+keep <- t[t>1]
+
+#select tissues
+tis_spec_targets <- dplyr::select(tis_spec_targets, c("kidney", names(keep))) #include kidney even if it has less than 2 biased targets!
+
+```
+
+annotate targets by sirolimus's effect (from signor data)
+```{r}
+sirolimus_effects <- #sirol_signor %>% dplyr::filter(ENTITYB %in% target_aggreg) %>%
+  tis_spec_targets %>% rownames_to_column( var = "ENTITYB") %>% dplyr::left_join(., sirol_signor, by = "ENTITYB") %>%
+  dplyr::mutate(Sirolimus_Effect = stringr::str_sub(EFFECT, start = 1, end = 14)) %>% 
+  dplyr::select(ENTITYB, Sirolimus_Effect, Effect_Mechanism = MECHANISM) %>% distinct() %>%  mutate_all(list(~na_if(.,""))) %>% column_to_rownames(var = "ENTITYB")
+  
+row_ha = rowAnnotation(Sirolimus_Effect = sirolimus_effects$Sirolimus_Effect, 
+                       Effect_Mechanism = sirolimus_effects$Effect_Mechanism,
+                       #colors for each annotation
+    col = list(Sirolimus_Effect = c("up-regulates" = rocket(4)[4], "down-regulates" = rocket(4)[1]),
+               Effect_Mechanism = c("transcriptional regulation" = rocket(4)[2], "chemical inhibition" =  rocket(4)[3])),
+    #legend font sizes
+    annotation_legend_param = list(Sirolimus_Effect = list(title = "Sirolimus Effect", title_gp = gpar(fontsize = 14, fontface = "bold"), labels_gp = gpar(fontsize = 12, fontface = "bold")), 
+                                   Effect_Mechanism = list(title = "Effect Mechanism", title_gp = gpar(fontsize = 14, fontface = "bold"), labels_gp = gpar(fontsize = 12, fontface = "bold"))),
+    #annotation labels
+    annotation_name_gp= gpar(fontsize = 12, fontface = "bold")
+    )
+
+```
+
+
+##### Plot heatmap
+```{r}
+png("../figures/gtex_tissuespecificDEG_sirolimus_heatmap.png", width = 25, height = 40, units = "cm", res = 300)
+
+set.seed(1) #seed for clustering
+ComplexHeatmap::Heatmap(tis_spec_targets, row_labels = rownames(tis_spec_targets), right_annotation = row_ha, col = cividis(3),
+                        #legend font sizes
+                        heatmap_legend_param = list(title_gp = gpar(fontsize = 14, fontface = "bold"), labels_gp = gpar(fontsize = 12, fontface = "bold")),
+      #labels/titles
+name = "Tissue Specificity", row_title = "Sirolimus Targets", row_title_gp = gpar(fontsize = 16.2, fontface = "bold"),
+        column_title = "Tissue Specific Expression of Sirolimus Drug Targets", column_title_gp = gpar(fontsize = 19, fontface = "bold"), column_names_rot = 45,
+  #resize other fonts
+  row_names_gp = gpar(fontsize = 14, fontface = "bold"),column_names_gp = gpar(fontsize = 15, fontface = "bold"))
+
+dev.off()
+```
+
+#### Versions  
+```{r}
+R.Version()
+```
+
+
+```{r}
+installed.packages()[names(sessionInfo()$otherPkgs), "Version"]
+```

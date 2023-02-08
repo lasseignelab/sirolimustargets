@@ -1,0 +1,164 @@
+User: not logged in
+1/30/2023 10:39:39 AM
+TCRD Version: 6.13.4
+Pharos Version: 3.15.1
+URL: https://pharos.nih.gov/targets?query=rapamycin&facet=Target%2BDevelopment%2BLevel!Tclin&facet=Target%2BDevelopment%2BLevel!Tchem
+
+Selected Fields for Download:
+  UniProt - The UniProt ID for this protein
+  Symbol - The approved gene symbol
+  DTO Class - Classification of targets into hierarchical families according to the <a href="http://drugtargetontology.org/" target="_blank">Drug Target Ontology</a>.
+  DTO ID - The ID of the DTO class
+  DTO Definition - The descriptive definition of the DTO class
+
+
+
+How to cite Pharos:
+  Sheils, T., Mathias, S. et al, "TCRD and Pharos 2021: mining the human proteome for disease biology", Nucl. Acids Res., 2021.
+  DOI: https://doi.org/10.1093/nar/gkaa993">10.1093/nar/gkaa993
+
+Data accessed from Pharos and TCRD is publicly available from the primary data sources listed on https://pharos.nih.gov/about. Please respect their individual licenses regarding proper use, redistribution, and citations.
+
+SQL Query:
+SELECT
+  protein.id AS `id`,
+  protein.uniprot AS `UniProt`,
+  protein.sym AS `Symbol`,
+  dto.name AS `DTO Class`,
+  dto.dtoid AS `DTO ID`,
+  dto.def AS `DTO Definition`
+FROM
+  `protein`
+  LEFT JOIN `p2dto` ON `protein`.`id` = `p2dto`.`protein_id`
+  LEFT JOIN `dto` AS `dto` ON `p2dto`.`dtoid` = `dto`.`dtoid`
+  AND dto.name != 'protein'
+  INNER JOIN (
+    SELECT
+      DISTINCT protein.id AS `id`
+    FROM
+      `target`
+      INNER JOIN `t2tc` ON `target`.`id` = `t2tc`.`target_id`
+      INNER JOIN `protein` AS `protein` ON `t2tc`.`protein_id` = `protein`.`id`
+    WHERE
+      target.tdl IN ('Tclin', 'Tchem')
+      AND `protein`.`id` IS NOT NULL
+  ) AS `facet0` ON `facet0`.`id` = `protein`.`id`
+  INNER JOIN (
+    SELECT
+      `protein_id`,
+      `match`,
+      min(`score`) AS `min_score`,
+      max(`match_score`) AS `match_score`
+    FROM
+      (
+        SELECT
+          `id` AS `protein_id`,
+          `sym` AS `match`,
+          1 AS `score`,
+          1 AS `match_score`
+        FROM
+          `protein` AS `pro`
+        WHERE
+          `sym` REGEXP '^rapamycin'
+          OR `uniprot` REGEXP '^rapamycin'
+          OR `stringid` REGEXP '^rapamycin'
+        UNION
+        SELECT
+          `protein_id` AS `protein_id`,
+          `value` AS `match`,
+          1.5 AS `score`,
+          1 AS `match_score`
+        FROM
+          `alias` AS `alias`
+        WHERE
+          `value` REGEXP '^rapamycin'
+        UNION
+        SELECT
+          `protein_id` AS `protein_id`,
+          `value` AS `match`,
+          1.5 AS `score`,
+          1 AS `match_score`
+        FROM
+          `xref` AS `xref`
+        WHERE
+          `xtype` = 'Ensembl'
+          AND `value` = 'rapamycin'
+        UNION
+        SELECT
+          `link`.`protein_id` AS `protein_id`,
+          `tar`.`name` AS `match`,
+          2 AS `score`,
+          1 AS `match_score`
+        FROM
+          `target` AS `tar`,
+          `t2tc` AS `link`
+        WHERE
+          `tar`.`name` REGEXP '^rapamycin'
+          AND `tar`.`id` = link.target_id
+        UNION
+        SELECT
+          `link`.`protein_id` AS `protein_id`,
+          `tar`.`name` AS `match`,
+          2.5 AS `score`,
+          1 AS `match_score`
+        FROM
+          `target` AS `tar`,
+          `t2tc` AS `link`
+        WHERE
+          `tar`.`name` REGEXP '[[:<:]]rapamycin'
+          AND `tar`.`id` = link.target_id
+        UNION
+        SELECT
+          `protein_id` AS `protein_id`,
+          `xtra` AS `match`,
+          5 AS `score`,
+          count(*) AS `match_score`
+        FROM
+          `xref`
+        WHERE
+          `xtype` = 'UniProt Keyword'
+          AND `xtra` REGEXP '[[:<:]]rapamycin'
+        GROUP BY
+          `protein_id`
+        UNION
+        SELECT
+          `protein_id` AS `protein_id`,
+          `name` AS `match`,
+          3 AS `score`,
+          count(*) AS `match_score`
+        FROM
+          `disease`
+        WHERE
+          `name` REGEXP '[[:<:]]rapamycin'
+        GROUP BY
+          `protein_id`
+        UNION
+        SELECT
+          `protein_id` AS `protein_id`,
+          `term_name` AS `match`,
+          4 AS `score`,
+          1 AS `match_score`
+        FROM
+          `phenotype`
+        WHERE
+          `ptype` = 'JAX/MGI Human Ortholog Phenotype'
+          AND `term_name` REGEXP '[[:<:]]rapamycin'
+        UNION
+        SELECT
+          `protein_id` AS `protein_id`,
+          `string_value` AS `match`,
+          10 AS `score`,
+          1 AS `match_score`
+        FROM
+          `tdl_info`
+        WHERE
+          `string_value` REGEXP '[[:<:]]rapamycin'
+          AND `itype` IN ('UniProt Function', 'NCBI Gene Summary')
+      ) AS `targetQuery`
+    GROUP BY
+      `protein_id`
+  ) AS `filterQuery` ON `filterQuery`.`protein_id` = `protein`.`id`
+ORDER BY
+  `id` ASC
+LIMIT
+  250000

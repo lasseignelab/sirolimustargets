@@ -1,0 +1,64 @@
+"id","UniProt","Symbol","DTO Class","DTO ID","DTO Definition"
+6380,"P62942","FKBP1A","Peptidyl-prolyl cis-trans isomerase FKBP1A","DTO:05005892",
+6380,"P62942","FKBP1A","Isomerase","DTO:05007625",
+6380,"P62942","FKBP1A","Enzyme","DTO:05007624",
+6380,"P62942","FKBP1A",,,
+6381,"P68106","FKBP1B","Peptidyl-prolyl cis-trans isomerase FKBP1B","DTO:05005889",
+6381,"P68106","FKBP1B","Isomerase","DTO:05007625",
+6381,"P68106","FKBP1B","Enzyme","DTO:05007624",
+6381,"P68106","FKBP1B",,,
+6467,"Q13451","FKBP5","Peptidyl-prolyl cis-trans isomerase FKBP5","DTO:05005896",
+6467,"Q13451","FKBP5","Isomerase","DTO:05007625",
+6467,"Q13451","FKBP5","Enzyme","DTO:05007624",
+6467,"Q13451","FKBP5",,,
+6495,"Q02790","FKBP4","Peptidyl-prolyl cis-trans isomerase FKBP4","DTO:05005894",
+6495,"Q02790","FKBP4","Isomerase","DTO:05007625",
+6495,"Q02790","FKBP4","Enzyme","DTO:05007624",
+6495,"Q02790","FKBP4",,,
+6576,"P26885","FKBP2",,,
+10154,"Q9P1W9","PIM2","Serine/threonine-protein kinase pim-2","DTO:03100418","'A serine/threonine-protein kinase Pim-2 that is encoded in the genome of human. [PRO:DNx, UniProtKB:Q9P1W9]'"
+10154,"Q9P1W9","PIM2","PIM family","DTO:03300207",
+10154,"Q9P1W9","PIM2","CAMK group","DTO:03300105",
+10154,"Q9P1W9","PIM2","Protein kinase","DTO:03300102","'A protein kinase is a kinase enzyme that modifies other proteins by chemically adding phosphate groups to them (phosphorylation).'"
+10154,"Q9P1W9","PIM2","Kinase","DTO:03300101","'In biochemistry, a kinase is an enzyme that catalyzes the transfer of phosphate groups from high-energy, phosphate-donating molecules to specific substrates.'"
+10154,"Q9P1W9","PIM2",,,
+11257,"P23443","RPS6KB1","Ribosomal protein s6 kinase beta-1","DTO:03100257","'A ribosomal protein S6 kinase beta-1 that is encoded in the genome of human. [PRO:CNA, UniProtKB:P23443]'"
+11257,"P23443","RPS6KB1","P70 subfamily","DTO:03300282",
+11257,"P23443","RPS6KB1","RSK family","DTO:03300178",
+11257,"P23443","RPS6KB1","AGC group","DTO:03300109",
+11257,"P23443","RPS6KB1","Protein kinase","DTO:03300102","'A protein kinase is a kinase enzyme that modifies other proteins by chemically adding phosphate groups to them (phosphorylation).'"
+11257,"P23443","RPS6KB1","Kinase","DTO:03300101","'In biochemistry, a kinase is an enzyme that catalyzes the transfer of phosphate groups from high-energy, phosphate-donating molecules to specific substrates.'"
+11257,"P23443","RPS6KB1",,,
+11329,"Q15418","RPS6KA1","Ribosomal protein s6 kinase alpha-1","DTO:03100251","'A ribosomal protein S6 kinase alpha-1 that is encoded in the genome of human. [PRO:DNx, UniProtKB:Q15418]'"
+11329,"Q15418","RPS6KA1","RSK subfamily","DTO:03300280",
+11329,"Q15418","RPS6KA1","RSK family","DTO:03300178",
+11329,"Q15418","RPS6KA1","AGC group","DTO:03300109",
+11329,"Q15418","RPS6KA1","Protein kinase","DTO:03300102","'A protein kinase is a kinase enzyme that modifies other proteins by chemically adding phosphate groups to them (phosphorylation).'"
+11329,"Q15418","RPS6KA1","Kinase","DTO:03300101","'In biochemistry, a kinase is an enzyme that catalyzes the transfer of phosphate groups from high-energy, phosphate-donating molecules to specific substrates.'"
+11329,"Q15418","RPS6KA1",,,
+16489,"O75385","ULK1","Serine/threonine-protein kinase ulk1","DTO:03100555","'A serine/threonine-protein kinase ULK1 that is encoded in the genome of human. [PRO:DNx, UniProtKB:O75385]'"
+16489,"O75385","ULK1","ULK family","DTO:03300228",
+16489,"O75385","ULK1","Other group","DTO:03300104",
+16489,"O75385","ULK1","Protein kinase","DTO:03300102","'A protein kinase is a kinase enzyme that modifies other proteins by chemically adding phosphate groups to them (phosphorylation).'"
+16489,"O75385","ULK1","Kinase","DTO:03300101","'In biochemistry, a kinase is an enzyme that catalyzes the transfer of phosphate groups from high-energy, phosphate-donating molecules to specific substrates.'"
+16489,"O75385","ULK1",,,
+16490,"Q8IYT8","ULK2","Serine/threonine-protein kinase ulk2","DTO:03100556","'A serine/threonine-protein kinase ULK2 that is encoded in the genome of human. [PRO:DNx, UniProtKB:Q8IYT8]'"
+16490,"Q8IYT8","ULK2","ULK family","DTO:03300228",
+16490,"Q8IYT8","ULK2","Other group","DTO:03300104",
+16490,"Q8IYT8","ULK2","Protein kinase","DTO:03300102","'A protein kinase is a kinase enzyme that modifies other proteins by chemically adding phosphate groups to them (phosphorylation).'"
+16490,"Q8IYT8","ULK2","Kinase","DTO:03300101","'In biochemistry, a kinase is an enzyme that catalyzes the transfer of phosphate groups from high-energy, phosphate-donating molecules to specific substrates.'"
+16490,"Q8IYT8","ULK2",,,
+19547,"P51812","RPS6KA3","Ribosomal protein s6 kinase alpha-3","DTO:03100253","'A ribosomal protein S6 kinase alpha-3 that is encoded in the genome of human. [PRO:DNx, UniProtKB:P51812]'"
+19547,"P51812","RPS6KA3","RSK subfamily","DTO:03300280",
+19547,"P51812","RPS6KA3","RSK family","DTO:03300178",
+19547,"P51812","RPS6KA3","AGC group","DTO:03300109",
+19547,"P51812","RPS6KA3","Protein kinase","DTO:03300102","'A protein kinase is a kinase enzyme that modifies other proteins by chemically adding phosphate groups to them (phosphorylation).'"
+19547,"P51812","RPS6KA3","Kinase","DTO:03300101","'In biochemistry, a kinase is an enzyme that catalyzes the transfer of phosphate groups from high-energy, phosphate-donating molecules to specific substrates.'"
+19547,"P51812","RPS6KA3",,,
+20357,"P42345","MTOR","Serine/threonine-protein kinase mtor","DTO:03100345","'A serine/threonine-protein kinase mTOR that is encoded in the genome of human. [PRO:CL, UniProtKB:P42345]'"
+20357,"P42345","MTOR","FRAP subfamily","DTO:03391035",
+20357,"P42345","MTOR","PIKK family","DTO:03300129",
+20357,"P42345","MTOR","Atypical group","DTO:03300108",
+20357,"P42345","MTOR","Protein kinase","DTO:03300102","'A protein kinase is a kinase enzyme that modifies other proteins by chemically adding phosphate groups to them (phosphorylation).'"
+20357,"P42345","MTOR","Kinase","DTO:03300101","'In biochemistry, a kinase is an enzyme that catalyzes the transfer of phosphate groups from high-energy, phosphate-donating molecules to specific substrates.'"
+20357,"P42345","MTOR",,,
