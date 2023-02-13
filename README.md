@@ -1,3 +1,6 @@
+### Authors. 
+Elizabeth J. Wilk, Timothy C. Howton, Brittany N. Lasseigne 
+ 
 ## Purpose. 
 Investigate GTEx[(1)](https://pubmed.ncbi.nlm.nih.gov/23715323/)[(2)](https://pubmed.ncbi.nlm.nih.gov/25954001/) tissue-specific expression of the drug targets of sirolimus (aka rapamycin) using signatureSearchData[(3)](https://pubmed.ncbi.nlm.nih.gov/33068417/), Pharos[(4)](https://pubmed.ncbi.nlm.nih.gov/31898878/) (Tclin and Tchem level targets), and Signor[(5)](https://pubmed.ncbi.nlm.nih.gov/36243968/). 
 
